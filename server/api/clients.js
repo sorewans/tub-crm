@@ -37,4 +37,20 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.put('/:id', async (req, res, next) => {
+  try {
+  console.log(req.params.id);
+  let id = req.params.id;
+  console.log(req.body);
+  const updateClient = await AddClient.findByIdAndUpdate( id, req.body );
+  res.json(updateClient);
+  } catch (error) {
+    console.log(error.name);
+    if (error.name === 'ValidationError') {
+      res.status(422);
+    }
+    next(error);
+  }
+});
+
 module.exports = router;

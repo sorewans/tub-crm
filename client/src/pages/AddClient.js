@@ -1,7 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
 import { addClientToDatabase } from '../API';
-import { TextField } from '@mui/material';
+import { 
+  TextField, 
+  Button, 
+  FormControl, 
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  Checkbox,
+  } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import Grid from '@mui/material/Unstable_Grid2';
 
 export default function AddClient() {
   const [name, setName] = useState("");
@@ -17,6 +28,7 @@ export default function AddClient() {
   const [checkGas, setCheckGas] = useState(false);
   const [checkEle, setCheckEle] = useState(false);
   const [checkWat, setCheckWat] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const client = {
     name: name,
@@ -35,15 +47,6 @@ export default function AddClient() {
     contracts: [checkGas, checkEle, checkWat]
   }
 
-  const Checkbox = ({ label, value, onChange }) => {
-    return (
-      <label>
-        <input type="checkbox" checked={value} onChange={onChange} />
-        {label}
-      </label>
-    );
-  };
-
   const handleClick = () => {
     addClientToDatabase(client); 
     setName("");
@@ -59,6 +62,11 @@ export default function AddClient() {
     setCheckGas(false);
     setCheckEle(false);
     setCheckWat(false);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   }
 
   const handleChangeGas = () => {
@@ -75,108 +83,152 @@ export default function AddClient() {
 
   return (
     <div className="addClient"> 
-    <TextField 
-    id = "outlined-name"
-    label = "Name"
-    value= {name}
-    onChange={(event) => {
-      setName(event.target.value)
-     }}
-    />
-    <TextField
-    id = "outlined-tradeName"
-    label = "Trading as"
-    value = {tradeName}
-    onChange={(event) => {
-      setTradeName(event.target.value)
-     }}
-    />
-    <TextField
-    id = "outlined-address"
-    label = "Address"
-    value = {address}
-    multiline = "true"
-    maxRows = "4"
-    rows = "4"
-    onChange={(event) => {
-      setAddress(event.target.value)
-     }}
-    />
-    <TextField
-    id = "outlined-contact1"
-    label ="Contact 1"
-    value = {contact1}
-    onChange={(event) => {
-      setContact1(event.target.value)
-     }}
-    />
-    <TextField
-    id = "outlined-phone1"
-    label = "Contact 1 phone"
-    value = {phone1}
-    onChange={(event) => {
-      setPhone1(event.target.value)
-     }}
-    />
-    <TextField
-    id = "outlined-email1"
-    label = "Contact 1 email"
-    value = {email1}
-    type = "email"
-    onChange={(event) => {
-      setEmail1(event.target.value)
-     }} 
-    />
-    <TextField
-    id = "outlined-contact2"
-    label = "Contact 2"
-    value = {contact2}
-    onChange={(event) => {
-      setContact2(event.target.value)
-     }}
-    />
-    <TextField
-    id = "outlined-phone2"
-    label = "Contact 2 phone"
-    value = {phone2}
-    onChange={(event) => {
-      setPhone2(event.target.value)
-     }}
-    />
-    <TextField
-    id = "outlined-email2"
-    label = "Contact 2 email"
-    value = {email2}
-    type = "email"
-    onChange={(event) => {
-      setEmail2(event.target.value)
-     }}
-    />
-    <TextField
-    id = "outlined-notes"
-    label = "Notes"
-    value = {notes}
-    onChange={(event) => {
-      setNotes(event.target.value)
-     }}
-    />
-    <Checkbox
-        label="Gas"
-        value={checkGas}
-        onChange={handleChangeGas}
+    <h1>Add a new client</h1>
+    <Grid container spacing={2}>
+      <Grid xs={4}>
+      <TextField 
+      id = "outlined-name"
+      label = "Name"
+      value= {name}
+      onChange={(event) => {
+        setName(event.target.value)
+      }}
       />
-    <Checkbox
-        label="Electricity"
-        value={checkEle}
-        onChange={handleChangeEle}
+    </Grid>
+    <Grid xs={4}>
+      <TextField
+      id = "outlined-tradeName"
+      label = "Trading as"
+      value = {tradeName}
+      onChange={(event) => {
+        setTradeName(event.target.value)
+      }}
       />
-    <Checkbox
-        label="Water"
-        value={checkWat}
-        onChange={handleChangeWat}
+    </Grid>
+    <Grid xs={4}>
+      <TextField
+      id = "outlined-address"
+      label = "Address"
+      value = {address}
+      multiline = {true}
+      rows = "4"
+      onChange={(event) => {
+        setAddress(event.target.value)
+      }}
       />
-  <button onClick={() => handleClick() }>Add Client</button>
-    </div>
+    </Grid>
+    <Grid xs={4}>
+      <TextField
+      id = "outlined-contact1"
+      label ="Contact 1"
+      value = {contact1}
+      onChange={(event) => {
+        setContact1(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs={4}>
+      <TextField
+      id = "outlined-phone1"
+      label = "Contact 1 phone"
+      value = {phone1}
+      onChange={(event) => {
+        setPhone1(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs = {4}>
+      <TextField
+      id = "outlined-email1"
+      label = "Contact 1 email"
+      value = {email1}
+      type = "email"
+      onChange={(event) => {
+        setEmail1(event.target.value)
+      }} 
+      />
+    </Grid>
+    <Grid xs={4}>
+      <TextField
+      id = "outlined-contact2"
+      label = "Contact 2"
+      value = {contact2}
+      onChange={(event) => {
+        setContact2(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs={4}>
+      <TextField
+      id = "outlined-phone2"
+      label = "Contact 2 phone"
+      value = {phone2}
+      onChange={(event) => {
+        setPhone2(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs={4}>
+      <TextField
+      id = "outlined-email2"
+      label = "Contact 2 email"
+      value = {email2}
+      type = "email"
+      onChange={(event) => {
+        setEmail2(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs = {8}>
+      <TextField
+      sx = {{width:600}}
+      id = "outlined-notes"
+      label = "Notes"
+      multiline = {true}
+      rows = {4}
+      value = {notes}
+      onChange={(event) => {
+        setNotes(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs={4}>
+    <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+        <FormLabel component="legend">Current Contracts</FormLabel>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox checked={checkGas} onChange={handleChangeGas} name="gas" />
+            }
+            label="Gas"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox checked={checkEle} onChange={handleChangeEle} name="electricity" />
+            }
+            label="Electricity"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox checked={checkWat} onChange={handleChangeWat} name="water" />
+            }
+            label="Water"
+          />
+        </FormGroup>
+      </FormControl>
+    </Grid>
+    </Grid>
+    <Button 
+     variant = "contained"
+     onClick={() => handleClick() }>
+     Add Client</Button>
+    <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+    <MuiAlert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+    Client added successfully
+  </MuiAlert>
+    </Snackbar>
+  </div>
   )
 }
+
 
