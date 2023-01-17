@@ -18,32 +18,40 @@ export default function AddClient() {
   const [name, setName] = useState("");
   const [tradeName, setTradeName] = useState("");
   const [address, setAddress] = useState("");
+  const [website, setWebsite] = useState("");
   const [contact1, setContact1] = useState("");
+  const [position1, setPosition1] = useState("");
   const [email1, setEmail1] = useState("");
   const [phone1, setPhone1] = useState("");
   const [contact2, setContact2] = useState("");
+  const [position2, setPosition2] = useState("");
   const [email2, setEmail2] = useState("");
   const [phone2, setPhone2] = useState("");
   const [notes, setNotes] = useState("");
   const [checkGas, setCheckGas] = useState(false);
   const [checkEle, setCheckEle] = useState(false);
   const [checkWat, setCheckWat] = useState(false);
+  const [checkDbcomm, setCheckDbComm] = useState(false);
   const [open, setOpen] = useState(false);
 
   const client = {
     name: name,
     tradeName: tradeName,
     address: address,
+    website: website,
     contact1: contact1,
+    position1: position1,
     email1: email1,
     phone1: phone1,
     contact2: contact2,
+    position2: position2,
     email2: email2,
     phone2: phone2,
     notes: notes,
     gas: checkGas,
     electric: checkEle,
     water: checkWat,
+    dbcomm: checkDbcomm,
     contracts: [checkGas, checkEle, checkWat]
   }
 
@@ -52,16 +60,20 @@ export default function AddClient() {
     setName("");
     setTradeName("");
     setAddress("");
+    setWebsite("");
     setContact1("");
+    setPosition1("");
     setEmail1("");
     setPhone1("");
     setContact2("");
+    setPosition2("");
     setPhone2("");
     setEmail2("");
     setNotes("");
     setCheckGas(false);
     setCheckEle(false);
     setCheckWat(false);
+    setCheckDbComm(false);
     setOpen(true);
   };
 
@@ -81,11 +93,15 @@ export default function AddClient() {
     setCheckWat(!checkWat);
   };
 
+  const handleChangeDbcomm = () => {
+    setCheckDbComm(!checkDbcomm);
+  };
+
   return (
     <div className="addClient"> 
     <h1>Add a new client</h1>
     <Grid container spacing={2}>
-      <Grid xs={4}>
+      <Grid xs={3}>
       <TextField 
       id = "outlined-name"
       label = "Name"
@@ -95,7 +111,7 @@ export default function AddClient() {
       }}
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
       <TextField
       id = "outlined-tradeName"
       label = "Trading as"
@@ -105,7 +121,7 @@ export default function AddClient() {
       }}
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
       <TextField
       id = "outlined-address"
       label = "Address"
@@ -117,7 +133,17 @@ export default function AddClient() {
       }}
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
+      <TextField
+      id = "outlined-website"
+      label = "Website"
+      value = {website}
+      onChange={(event) => {
+        setWebsite(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs={3}>
       <TextField
       id = "outlined-contact1"
       label ="Contact 1"
@@ -127,7 +153,17 @@ export default function AddClient() {
       }}
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
+      <TextField
+      id = "outlined-position1"
+      label ="Position"
+      value = {position1}
+      onChange={(event) => {
+        setPosition1(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs={3}>
       <TextField
       id = "outlined-phone1"
       label = "Contact 1 phone"
@@ -137,7 +173,7 @@ export default function AddClient() {
       }}
       />
     </Grid>
-    <Grid xs = {4}>
+    <Grid xs = {3}>
       <TextField
       id = "outlined-email1"
       label = "Contact 1 email"
@@ -148,7 +184,7 @@ export default function AddClient() {
       }} 
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
       <TextField
       id = "outlined-contact2"
       label = "Contact 2"
@@ -158,7 +194,17 @@ export default function AddClient() {
       }}
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
+      <TextField
+      id = "outlined-position2"
+      label ="Position 2"
+      value = {position2}
+      onChange={(event) => {
+        setPosition2(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs={3}>
       <TextField
       id = "outlined-phone2"
       label = "Contact 2 phone"
@@ -168,7 +214,7 @@ export default function AddClient() {
       }}
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
       <TextField
       id = "outlined-email2"
       label = "Contact 2 email"
@@ -214,6 +260,12 @@ export default function AddClient() {
             }
             label="Water"
           />
+          <FormControlLabel
+            control={
+              <Checkbox checked={checkDbcomm} onChange={handleChangeDbcomm} name="dbcomm" />
+            }
+            label="DB Comms"
+          />
         </FormGroup>
       </FormControl>
     </Grid>
@@ -222,7 +274,7 @@ export default function AddClient() {
      variant = "contained"
      onClick={() => handleClick() }>
      Add Client</Button>
-    <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+    <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
     <MuiAlert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
     Client added successfully
   </MuiAlert>

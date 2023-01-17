@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { returnOneClient, updateClientToDatabase } from '../API';
-import { useParams } from 'react-router-dom';
+import { returnOneClient, updateClientToDatabase,  } from '../API';
+import { useParams, useNavigate} from 'react-router-dom';
 import { 
   TextField, 
   Button, 
@@ -22,36 +22,45 @@ export default function ClientDetail() {
   const [name, setName] = useState("");
   const [tradeName, setTradeName] = useState("");
   const [address, setAddress] = useState("");
+  const [website, setWebsite] = useState("");
   const [contact1, setContact1] = useState("");
+  const [position1, setPosition1] = useState("");
   const [email1, setEmail1] = useState("");
   const [phone1, setPhone1] = useState("");
   const [contact2, setContact2] = useState("");
+  const [position2, setPosition2] = useState("");
   const [email2, setEmail2] = useState("");
   const [phone2, setPhone2] = useState("");
   const [notes, setNotes] = useState("");
   const [checkGas, setCheckGas] = useState(false);
   const [checkEle, setCheckEle] = useState(false);
   const [checkWat, setCheckWat] = useState(false);
+  const [checkDbcomm, setCheckDbComm] = useState(false);
   const [readOnly, setReadOnly] = useState(true);
   const [editButVis, setEditButVis] = useState("visible");
   const [saveButVis, setSaveButVis] = useState("hidden");
   const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
 
   const updatedClient = {
     name: name,
     tradeName: tradeName,
     address: address,
+    website: website,
     contact1: contact1,
+    position1: position1,
     email1: email1,
     phone1: phone1,
     contact2: contact2,
+    position2: position2,
     email2: email2,
     phone2: phone2,
     notes: notes,
     gas: checkGas,
     electric: checkEle,
     water: checkWat,
+    dbcomm: checkDbcomm,
     contracts: [checkGas, checkEle, checkWat]
   };
 
@@ -77,6 +86,10 @@ export default function ClientDetail() {
     setCheckWat(!checkWat);
   };
 
+  const handleChangeDbcomm = () => {
+    setCheckDbComm(!checkDbcomm);
+  };
+
   const editClient = () => {
     setReadOnly(false);
     setEditButVis("hidden");
@@ -93,6 +106,10 @@ export default function ClientDetail() {
     setOpen(false);
   }
 
+  const closeClient = () => {
+    navigate('/clients');
+  }
+
   const params = useParams();
 
   useEffect(() => {
@@ -103,16 +120,20 @@ export default function ClientDetail() {
       setName(result.name);
       setTradeName(result.tradeName);
       setAddress(result.address);
+      setWebsite(result.website);
       setContact1(result.contact1);
+      setPosition1(result.position1);
       setEmail1(result.email1);
       setPhone1(result.phone1);
       setContact2(result.contact2);
+      setPosition2(result.position2);
       setPhone2(result.phone2);
       setEmail2(result.email2);
       setNotes(result.notes);
       setCheckGas(result.gas);
       setCheckEle(result.electric);
       setCheckWat(result.water);
+      setCheckDbComm(result.dbcomm);
     })();
   }, []);
 
@@ -120,7 +141,7 @@ export default function ClientDetail() {
     <div className="ClientDetail">
     <h1>{name}</h1>
     <Grid container spacing={2}>
-      <Grid xs={4}>
+      <Grid xs={3}>
       <TextField 
       id = "outlined-name"
       label = "Name"
@@ -134,7 +155,7 @@ export default function ClientDetail() {
       }}
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
       <TextField
       id = "outlined-tradeName"
       label = "Trading as"
@@ -148,7 +169,7 @@ export default function ClientDetail() {
       }}
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
       <TextField
       id = "outlined-address"
       label = "Address"
@@ -164,7 +185,21 @@ export default function ClientDetail() {
       }}
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
+      <TextField
+      id = "outlined-website"
+      label = "Website"
+      inputProps={
+        { readOnly: Boolean(readOnly)}
+      }
+      InputLabelProps={{shrink: true}}
+      value = {website}
+      onChange={(event) => {
+        setWebsite(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs={3}>
       <TextField
       id = "outlined-contact1"
       label ="Contact 1"
@@ -178,7 +213,21 @@ export default function ClientDetail() {
       }}
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
+      <TextField
+      id = "outlined-position1"
+      label ="Position"
+      inputProps={
+        { readOnly: Boolean(readOnly)}
+      }
+      InputLabelProps={{shrink: true}}
+      value = {position1}
+      onChange={(event) => {
+        setPosition1(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs={3}>
       <TextField
       id = "outlined-phone1"
       label = "Contact 1 phone"
@@ -192,7 +241,7 @@ export default function ClientDetail() {
       }}
       />
     </Grid>
-    <Grid xs = {4}>
+    <Grid xs = {3}>
       <TextField
       id = "outlined-email1"
       label = "Contact 1 email"
@@ -207,7 +256,7 @@ export default function ClientDetail() {
       }} 
       />
     </Grid>
-    <Grid xs={4}>
+    <Grid xs={3}>
       <TextField
       id = "outlined-contact2"
       label = "Contact 2"
@@ -218,6 +267,20 @@ export default function ClientDetail() {
       value = {contact2}
       onChange={(event) => {
         setContact2(event.target.value)
+      }}
+      />
+    </Grid>
+    <Grid xs={3}>
+      <TextField
+      id = "outlined-position2"
+      label = "Position"
+      inputProps={
+        { readOnly: Boolean(readOnly)}
+      }
+      InputLabelProps={{shrink: true}}
+      value = {position2}
+      onChange={(event) => {
+        setPosition2(event.target.value)
       }}
       />
     </Grid>
@@ -292,6 +355,13 @@ export default function ClientDetail() {
             label="Water"
             disabled={readOnly}
           />
+          <FormControlLabel
+            control={
+              <Checkbox checked={checkDbcomm} onChange={handleChangeDbcomm} name="dbcomm" />
+            }
+            label="DB Comms"
+            disabled={readOnly}
+          />
         </FormGroup>
       </FormControl>
     </Grid>
@@ -312,7 +382,12 @@ export default function ClientDetail() {
   sx = {{visibility: `${saveButVis}`}}
   onClick={() => cancelChange() }>
     Cancel</Button>
-  <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+  <Button 
+  variant = "contained"
+  sx = {{visibility: `${editButVis}`}}
+  onClick={() => closeClient() }>
+    Close</Button>
+  <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
     <MuiAlert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
     Client updated successfully
     </MuiAlert>

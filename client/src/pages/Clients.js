@@ -24,10 +24,6 @@ export default function Clients() {
             accessor: "tradeName",
           },
           {
-            Header: "Address",
-            accessor: "address"
-          },
-          {
             Header: "Primary Contact",
             accessor: "contact1"
           },
@@ -40,9 +36,16 @@ export default function Clients() {
             accessor: "email1"
           },
           {
-            id: "contracts",
-            Header: "Contracts",
-            accessor: d => d.contracts.toString()
+            Header: "Gas contract",
+            accessor: g => g.gas.toString(),
+          },
+          {
+            Header: "Electricity contract",
+            accessor: g => g.electric.toString(),
+          },
+          {
+            Header: "Water contract",
+            accessor: g => g.water.toString(),
           },
           {
             Header: "Notes",
@@ -65,7 +68,7 @@ export default function Clients() {
     })();
   }, []);
 
-  //console.log(allClients);
+  console.log(allClients);
   return (
     <div className="Clients">
       <Table columns={columns} data={allClients} />
