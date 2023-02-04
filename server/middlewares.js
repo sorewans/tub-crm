@@ -15,7 +15,13 @@ const errorHandler = (error, req, res, next) => {
   });
 };
 
-module.exports = {
+const range = (req, res, next) => {
+  res.header('Content-Range', 'clients 0-20/20');
+  next();
+};
+
+export default {
   notFound,
   errorHandler,
+  range
 };
