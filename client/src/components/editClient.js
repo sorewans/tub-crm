@@ -1,7 +1,7 @@
 import { Typography, Box, Divider } from '@mui/material';
 import React from 'react';
 import {
-  Create,
+  Edit,
   TabbedForm,
   TextInput,
   ArrayInput,
@@ -10,9 +10,9 @@ import {
   ReferenceArrayInput
   } from 'react-admin';
 
-const createClient = (props) => {
+const editClient = (props) => {
   return (
-    <Create title='Add a new Client' {...props}>
+    <Edit title='Add a new Client' {...props}>
       <TabbedForm>
         <TabbedForm.Tab label="Client">
           <Typography variant = "h6" gutterBottom>Client</Typography>
@@ -58,22 +58,18 @@ const createClient = (props) => {
             <SimpleFormIterator inline>
               <TextInput label = 'Trading Name' source = 'tradeName' />
               <TextInput label = 'Address' multiline source = 'address'/>
-              <ReferenceArrayInput source='contractTypes' reference="tags">
+              <ReferenceArrayInput source="contractTypes" reference="tags">
               <AutocompleteArrayInput />
               </ReferenceArrayInput>
             </SimpleFormIterator>
           </ArrayInput>
         </TabbedForm.Tab>
         <TabbedForm.Tab label="Notes">
-        <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
-          <Box flex={1} mr={{ xs: 0, sm: '0.5em' }}>
-             <TextInput label= "Notes" source="notes" multiline fullWidth />
-          </Box>
-        </Box>
+
         </TabbedForm.Tab>
       </TabbedForm>
-    </Create>
+    </Edit>
   )
 };
 
-export default createClient;
+export default editClient;

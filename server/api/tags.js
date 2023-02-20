@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import AddClient from '../models/clients.js';
+import AddTag from '../models/tags.js'
 import raExpressMongoose from 'express-mongoose-ra-json-server';
 
 const router = Router();
 
 router.use(
   '/',
-  raExpressMongoose(AddClient)
+  raExpressMongoose(AddTag)
 );
 
 export default router;

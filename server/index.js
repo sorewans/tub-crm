@@ -1,14 +1,17 @@
 import express, { json } from 'express';
+import connectDB from './config/db.js';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import middlewares from './middlewares.js';
 import clients from './api/clients.js';
-import connectDB from './config/db.js';
+import users from './api/users.js';
+import tags from './api/tags.js';
+import contacts from './api/contacts.js';
+
 
 import * as dotenv from 'dotenv';
 dotenv.config();
-console.log(process.env);
 
 const app = express();
 
@@ -29,13 +32,14 @@ app.use(function(req, res, next) {
 });
 
 app.use('/clients', clients);
+app.use('/users', users);
+app.use('/tags', tags);
+app.use('/contacts', contacts);
 
 // Not found middleware
 app.use(middlewares.notFound);
 
 app.use(middlewares.errorHandler);
-
-
 
 app.listen(5005, () => {
   console.log("Server is running on Port 5005")

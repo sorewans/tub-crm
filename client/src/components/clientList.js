@@ -3,17 +3,20 @@ import {
   List,
   Datagrid,
   TextField,
-  DateField,
-  EditButton,
-  DeleteButton,
+  EditButton, 
+  SearchInput
 } from 'react-admin';
 
+const postFilters = [
+  <SearchInput source="q" alwaysOn />
+];
+
 const ClientList = (props) => {
-  return <List {...props}>
-    <Datagrid>
-      <TextField source='name' />
+  return <List {...props} filters = {postFilters}>
+    <Datagrid rowClick = 'show'>
+      <TextField source='name' label= "Name" />
       <TextField source='address' />
-      <TextField source='contact1' />
+      <TextField source='contact1' label = "Primary Contact" />
       <TextField source='phone1' />
       <TextField source='email1' />
       <EditButton basepath = '/clients' />
