@@ -14,6 +14,7 @@ const clientEntrySchema = new Schema({
   address1: String,
   contractTypes: Array,
   additionalPremises: Array,
+  notes: String
 },
 {
   timestamps: true,

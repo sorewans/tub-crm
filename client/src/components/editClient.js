@@ -65,7 +65,11 @@ const editClient = (props) => {
           </ArrayInput>
         </TabbedForm.Tab>
         <TabbedForm.Tab label="Notes">
-
+        <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+          <Box flex={1} mr={{ xs: 0, sm: '0.5em' }}>
+             <TextInput label= "Notes" source="notes" multiline fullWidth />
+          </Box>
+        </Box>
         </TabbedForm.Tab>
       </TabbedForm>
     </Edit>
