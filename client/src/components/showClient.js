@@ -53,7 +53,7 @@ const showClient = (props) => {
           <TextField label = 'Address' source = 'address1'/>
           <ReferenceArrayField label= 'Contract types' source = 'contractTypes' reference = 'tags' />
 
-          <ArrayField label = "Add more premises" source="additionalPremises">
+          <ArrayField label = "Additional Premises" source="additionalPremises">
             <Datagrid>
               <TextField label = 'Trading Name' source = 'tradeName' />
               <TextField label = 'Address' multiline source = 'address'/>
@@ -62,7 +62,11 @@ const showClient = (props) => {
           </ArrayField>
         </TabbedShowLayout.Tab>
         <TabbedShowLayout.Tab label="Notes">
-
+        <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+          <Box flex={1} mr={{ xs: 0, sm: '0.5em' }}>
+             <TextInput label= "Notes" source="notes" multiline fullWidth />
+          </Box>
+        </Box>
         </TabbedShowLayout.Tab>
       </TabbedShowLayout>
     </Show>
